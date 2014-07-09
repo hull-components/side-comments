@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Hull SideComments Demo...</title>
-    <link href="//hullstrap.s3.amazonaws.com/stylesheets/hullstrap.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="//hls3.s3.amazonaws.com/stylesheets/styles.css" media="screen" rel="stylesheet" type="text/css" />
     <script src="//code.jquery.com/jquery-1.10.1.js"></script>
+    <script src="//hls3.s3.amazonaws.com/javascripts/hullstrap.js"></script>
     <script src="//d3f5pyioow99x0.cloudfront.net/0.8.34/hull.js"></script>
     <script src="marked.min.js"></script>
     <script>
@@ -12,8 +13,8 @@
         var parsed = marked(data);
         $('.commentable').html(parsed);
         Hull.init({
-          orgUrl: "https://6eda3a97.hullapp.io",
-          appId: '51da149cb3e17fd62d000152',
+          orgUrl: "https://hull-demos.hullapp.io",
+          appId: '53bd3a6e99ea4b7c70000134',
           sources: {
             default: '..'
           }
@@ -25,10 +26,22 @@
         width: 960px;
         margin: 0 auto;
       }
+      h2.alert {
+        text-align: center;
+      }
+      h2 [data-hull-component] {
+        font-size: 0.66em;
+        padding: 0.68em 0 0;
+      }
       .commentable {
         -webkit-transition: all 200ms ease-out;
         -moz-transition: all 200ms ease-out;
         transition: all 200ms ease-out;
+      }
+      .commentable-section .side-comment .marker:before,
+      .commentable-section .side-comment .marker span {
+        font-weight: bold;
+        line-height: 20px;
       }
     </style>
   </head>
