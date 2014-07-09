@@ -10,8 +10,7 @@
     <script src="marked.min.js"></script>
     <script>
       $.ajax('./README.md').then(function (data) {
-        var parsed = marked(data);
-        $('.commentable').html(parsed);
+        $('.commentable').html(marked(data));
         Hull.init({
           orgUrl: "https://hull-demos.hullapp.io",
           appId: '53bd3a6e99ea4b7c70000134',
@@ -20,6 +19,10 @@
           }
         });
       });
+      Hull.on('hull.auth.fail', function (err) {
+        console.log(err);
+        alert('Ooops: ' +  err.message + ', ' + err.reason);
+      })
     </script>
     <style>
       body {
