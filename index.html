@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hull SideComments Demo...</title>
+    <link href="//hullstrap.s3.amazonaws.com/stylesheets/hullstrap.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.1.js"></script>
+    <script src="//d3f5pyioow99x0.cloudfront.net/0.8.34/hull.js"></script>
+    <script src="marked.min.js"></script>
+    <script>
+      $.ajax('./README.md').then(function (data) {
+        var parsed = marked(data);
+        $('.commentable').html(parsed);
+        Hull.init({
+          orgUrl: "https://6eda3a97.hullapp.io",
+          appId: '51da149cb3e17fd62d000152',
+          sources: {
+            default: '..'
+          }
+        });
+      });
+    </script>
+    <style>
+      body {
+        width: 960px;
+        margin: 0 auto;
+      }
+      .commentable {
+        -webkit-transition: all 200ms ease-out;
+        -moz-transition: all 200ms ease-out;
+        transition: all 200ms ease-out;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h2 class="alert alert-warning">
+      <em>Remember</em>: You must be logged in to post comments!
+      <div data-hull-component="login/profile@hull"></div>
+    </h2>
+    <div class="commentable" data-hull-selector="p" data-hull-component="side_comments"></div>
+  </body>
+</html>

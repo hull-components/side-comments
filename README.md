@@ -52,7 +52,6 @@ You can change the default behaviour with `data-*` attributes on the element whi
 * `data-hull-selector`: The selector to define the commentable sections (Default to 'p')
 * `data-hull-id`: The Hull object which the comments will be bound to (Defaults to the current page, based on the URL)
 
-
 ## Contact
 
 If you want to know more or get some help on what you can achieve with Hull,
