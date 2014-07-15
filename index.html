@@ -1,59 +1,95 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Hull SideComments Demo...</title>
-    <link href="//hls3.s3.amazonaws.com/stylesheets/styles.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="//code.jquery.com/jquery-1.10.1.js"></script>
-    <script src="//hls3.s3.amazonaws.com/javascripts/hullstrap.js"></script>
-    <script src="//d3f5pyioow99x0.cloudfront.net/0.8.34/hull.js"></script>
-    <script src="marked.min.js"></script>
-    <script>
-      $.ajax('./README.md').then(function (data) {
-        $('.commentable').html(marked(data));
-        Hull.init({
-          orgUrl: "https://hull-demos.hullapp.io",
-          appId: '53bd3a6e99ea4b7c70000134',
-          sources: {
-            default: '..'
-          }
-        });
+<head>
+  <meta charset="utf-8">
+  <title>Hull SideComments Demo</title>
+  <link href="//hls3.s3.amazonaws.com/stylesheets/styles.css" media="screen" rel="stylesheet" type="text/css" />
+  <script src="//code.jquery.com/jquery-1.10.1.js"></script>
+  <script src="//hls3.s3.amazonaws.com/javascripts/hullstrap.js"></script>
+  <script src="//d3f5pyioow99x0.cloudfront.net/0.8.34/hull.js"></script>
+  <script src="marked.min.js"></script>
+  <script>
+    $.ajax('./README.md').then(function(data) {
+      $('.commentable').html(marked(data));
+      Hull.init({
+        orgUrl: "https://hull-demos.hullapp.io",
+        appId: '53bd3a6e99ea4b7c70000134',
+        sources: {
+          default: '..'
+        }
       });
-      Hull.on('hull.auth.fail', function (err) {
-        console.log(err);
-        alert('Ooops: ' +  err.message + ', ' + err.reason);
-      })
-    </script>
-    <style>
-      body {
-        width: 960px;
-        margin: 0 auto;
-      }
-      h2.alert {
-        text-align: center;
-      }
-      h2 [data-hull-component] {
-        font-size: 0.66em;
-        padding: 0.68em 0 0;
-      }
-      .commentable {
-        -webkit-transition: all 200ms ease-out;
-        -moz-transition: all 200ms ease-out;
-        transition: all 200ms ease-out;
-      }
-      .commentable-section .side-comment .marker:before,
-      .commentable-section .side-comment .marker span {
-        font-weight: bold;
-        line-height: 20px;
-      }
-    </style>
-  </head>
-  <body>
+    });
+    Hull.on('hull.auth.fail', function(err) {
+      console.log(err);
+      alert('We had an error when logging in: ' + err.message + ', ' + err.reason);
+    })
+  </script>
+  <style>
+    .commentable {
+      -webkit-transition: all 200ms ease-out;
+      -moz-transition: all 200ms ease-out;
+      transition: all 200ms ease-out;
+    }
+    .commentable-section .side-comment .marker:before,
+    .commentable-section .side-comment .marker span {
+      font-weight: bold;
+      line-height: 20px;
+    }
+    /*Signup dropdown overrides*/
+    .dropdown-menu{
+      color : #555b69;
+    }
 
-    <h2 class="alert alert-warning">
-      <em>Remember</em>: You must be logged in to post comments!
-      <div data-hull-component="login/profile@hull"></div>
-    </h2>
-    <div class="commentable" data-hull-selector="p" data-hull-component="side-comments"></div>
-  </body>
+  </style>
+</head>
+
+<body>
+  <div class="navbar navbar-static-top navbar-branded">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand navbar-item" href="http://hull.io"><i class="logo"></i></a></div>
+      <ul class="nav navbar-nav">
+        <li> <a class="navbar-item" href="http://hull.io">Hull.io</a> </li>
+        <li> <a class="navbar-item" href="http://aroc.github.io/side-comments-demo/">SideComments.js</a> </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right hull-component" data-hull-component="login/profile@hull">
+        <script type='text/handlebars' data-hull-template='login/profile/profile'>
+          <li>
+            {{#if loggedIn}}
+              <a href="#" class="dropdown-toggle navbar-item avatar" data-toggle="dropdown">
+                {{#if me.picture}}
+                  <img alt="" src="{{me.picture}}" class="img-circle avatar">
+                {{/if}}
+                {{me.email}}
+                <b class="caret"></b>
+              </a>
+
+              <ul class="drop-form list-unstyled dropdown-menu">
+                <li>
+                  <a href="https://accounts.hullapp.io/">
+                    {{#if isBootstraped}} Open dashboard {{else}} Start using hull {{/if}}
+                  </a>
+                </li>
+                <li><a href="#" data-hull-action="logout">Sign out</a></li>
+              </ul>
+            {{else}}
+              
+              <a href='http://accounts.hullapp.io' class="text-right dropdown-toggle navbar-item avatar" data-toggle="dropdown" data-hull-action='login' data-hull-provider='github'>
+                <i class='icon icon-github'></i>      
+                Sign in with Github
+                <br/>
+                <small>You must be logged in to comment</small>
+              </a>
+            {{/if}}
+          </li>
+        </script>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-xs-12">
+      <div class="commentable" data-hull-selector="p" data-hull-component="side-comments"></div>
+    </div>    
+  </div>
+</body>
 </html>
